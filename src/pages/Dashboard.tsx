@@ -1,6 +1,6 @@
 import React from "react";
 import SummaryCards from '../components/SummaryCards';
-import BudgetChart from '../components/BudgetChart';
+import { AsyncBudgetChart as BudgetChart } from '../components/AsyncBudgetChart';
 import AddTransactionForm from '../components/AddTransactionForm';
 import TransactionList from '../components/TransactionList';
 import {SpendCalendarHeatmap} from '../components/SpendCalendarHeatmap';
