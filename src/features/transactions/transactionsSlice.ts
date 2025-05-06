@@ -8,6 +8,11 @@ export interface Transaction {
   category: string;
   type: 'income' | 'expense';
   currency: string;
+  recurrence?: {
+    rule: 'DAILY'|'WEEKLY'|'MONTHLY';
+    interval: number;
+    nextDate: string;
+  }
 }
 
 interface TransactionsState { list: Transaction[]; }

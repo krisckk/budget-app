@@ -15,7 +15,6 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        // optional: manualChunks for fine-tuned splitting
         manualChunks: {
           chart: ['chart.js', 'react-chartjs-2'],
           dexie: ['dexie'],
@@ -23,4 +22,12 @@ export default defineConfig({
       },
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+    }
+  }
 });

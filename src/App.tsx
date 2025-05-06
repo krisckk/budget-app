@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Routes, Route, NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setAll } from './features/transactions/transactionsSlice';
 import { db } from './db';
@@ -11,48 +12,29 @@ import { SpendCalendarHeatmap } from './components/SpendCalendarHeatmap';
 import { TimelineSlider } from './components/TimelineSlider';
 import { defaultCategories } from './data/defaultCategories';
 import { setAll as setCategories, addOne as addCategory } from './features/categories/categoriesSlice';
-import { useGetRatesQuery } from './features/fxApi';
+import Dashboard from './pages/Dashboard';
+import StockInfo from './pages/StockInfo';
 import './index.css';
 import 'react-calendar-heatmap/dist/styles.css';
-
-function FxDebug() {
-  const { data, error, isLoading, isFetching } = useGetRatesQuery('USD');
-  console.log({ data, error, isLoading, isFetching });
-
-  if (isLoading || isFetching) {
-    return <p>🔄 FX: loading…</p>;
-  }
-  if (error) {
-    return <p style={{ color: 'var(--error)' }}>⚠️ FX error!</p>;
-  }
-  if (!data || !data.rates) {
-    return <p>❓ FX: no data</p>;
-  }
-
-  return (
-    <pre style={{ fontSize: '0.8rem', color: '#888', whiteSpace: 'pre-wrap' }}>
-      ✅ FX rates loaded for USD: {Object.keys(data.rates).length} currencies
-    </pre>
-  );
-}
+import { parseISO } from 'date-fns';
 
 export function App() {
   const dispatch = useDispatch();
-  // 1. Theme state, default to stored or dark
+  
   const [theme, setTheme] = useState<string>(() => 
     localStorage.getItem('theme') || 'dark'
   );
-  // 2. Apply it to <html data-theme="...">
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   }, [theme]);
-  // 3. Load exisiting transactions
+  
   useEffect(() => {
     db.transactions.toArray().then(arr => dispatch(setAll(arr)));
   }, [dispatch]);
 
-  // Seed default categories if none exist
+  
   useEffect(() => {
     db.categories.count().then(count => {
       if (count === 0) {
@@ -77,21 +59,23 @@ export function App() {
   return (
     <div className="container">
       <header style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <h1>My Budget</h1>
+        <nav className="top-nav">
+          <NavLink to="/" end className="nav-button">
+            Dashboard
+          </NavLink>
+          <NavLink to="/stocks" className="nav-button">
+            Stocks
+          </NavLink>
+        </nav>
+        <h1>My Budget App</h1>
         <button onClick={toggleTheme}>
           {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
         </button>
       </header>
-      <SummaryCards />
-      <BudgetChart theme={theme} />
-      <CategoryManager />
-      <AddTransactionForm />
-      <TransactionList />
-      <h2>Spending Heatmap</h2>
-      <SpendCalendarHeatmap yearsBack={1} />
-
-      <h2>Spending Over Time</h2>
-      <TimelineSlider />
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/stocks" element={<StockInfo />} />
+      </Routes>
     </div>
   );
 }

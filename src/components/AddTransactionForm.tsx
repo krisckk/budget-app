@@ -4,18 +4,19 @@ import { addOne } from '../features/transactions/transactionsSlice';
 import { db } from '../db';
 import { RootState } from '../store';
 import * as Icons from 'react-icons/fa';
+import { add, parseISO } from 'date-fns';
 
 type TxType = 'income' | 'expense';
 
 function SingleForm({ type }: { type: TxType }) {
   const dispatch = useDispatch();
+  const categories = useSelector((s: RootState) => s.categories.list);
+
   const [desc, setDesc]   = useState('');
   const [amt,   setAmt]    = useState('');
   const [cat,   setCat]    = useState('');
   const [date,  setDate]   = useState(new Date().toISOString().slice(0,10));
-  const [currency, setCurrency] = useState('TWD');
-
-  const categories = useSelector((s: RootState) => s.categories.list);
+  const [currency, setCurrency] = useState('USD');
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,6 +25,12 @@ function SingleForm({ type }: { type: TxType }) {
       alert('Enter a valid number');
       return;
     }
+
+    const nextIso = add(
+      parseISO(date),
+      { days: 1 }
+    ).toISOString().slice(0,10);
+
     const signed = type === 'expense' ? -Math.abs(amountNum) : Math.abs(amountNum);
     const tx = {
       id: crypto.randomUUID(),
@@ -32,7 +39,7 @@ function SingleForm({ type }: { type: TxType }) {
       date,
       category: cat.trim(),
       type,
-      currency
+      currency: 'TWD'
     };
     await db.transactions.add(tx);
     dispatch(addOne(tx));
@@ -52,13 +59,38 @@ function SingleForm({ type }: { type: TxType }) {
             value={desc}
             onChange={e => setDesc(e.target.value)}
         />
-        <input
-            type="number"
+        <div className='amount-control'>
+          <input
+            type='text'
             required
-            placeholder="Amount"
+            placeholder='Amount'
             value={amt}
-            onChange={e => setAmt(e.target.value)}
-        />
+            onChange={e => setAmt(e.target.value.replace(/[^[0-9.]]/g, ''))}
+            className='amount-input'
+          />
+          <div className="amount-spin">
+            <button
+              type="button"
+              className="spin-up"
+              onClick={() =>
+                setAmt(prev => (Number(prev || 0) + 1).toString())
+              }
+              aria-label="Increase amount"
+            >
+              ▲
+            </button>
+            <button
+              type="button"
+              className="spin-down"
+              onClick={() =>
+                setAmt(prev => Math.max(0, Number(prev || 0) - 1).toString())
+              }
+              aria-label="Decrease amount"
+            >
+              ▼
+            </button>
+          </div>
+        </div>
         <div className="category-selector">
             {categories.map(c => {
             const Icon = (Icons as any)[c.icon];
@@ -98,6 +130,7 @@ function SingleForm({ type }: { type: TxType }) {
             ))}
           </select>
         </div>
+
         <button type="submit">Add</button>
     </form>
   );

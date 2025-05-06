@@ -9,7 +9,7 @@ export class BudgetDB extends Dexie {
   constructor() {
     super('BudgetDB');
     this.version(3).stores({
-      transactions: 'id, date, category, amount, type, currency',
+      transactions: 'id, date, category, amount, type, currency, recurrence',
       categories:   'id, order'
     });
   }
