@@ -81,58 +81,11 @@ header h1 {
   border-color: var(--primary);
 }
 
-/* Stock page */
-.stock-page {
-  background: var(--surface-alt);
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px var(--shadow);
-  margin: 1rem 0;
-}
-
-.stock-form {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.stock-form input {
-  width: 8rem;
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid var(--text-secondary);
-  border-radius: 6px;
-  background: var(--surface);
-  color: var(--text-primary);
-}
-
-.stock-form select {
-  appearance: none;
-  background: var(--surface);
-  border: 1px solid var(--text-secondary);
-  border-radius: 6px;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
-.stock-quote {
-  margin-top: 1rem;
-  text-align: center;
-}
-
-.stock-quote .price {
-  font-size: 2rem;
-  font-weight: bold;
-}
-
 .error {
   color: #e53935;
 }
 
-
-
-/* 6. Summary Card Grid */
+/* Summary Card Grid */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -140,7 +93,7 @@ header h1 {
   margin: 1rem 0;
 }
 
-/* 7. Summary Cards */
+/* Summary Cards */
 .summary-card {
   background-color: var(--surface);
   border-radius: 12px;
@@ -314,7 +267,100 @@ button {
   cursor: pointer;
 }
 
-/* 9. Transaction List */
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.recurring-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem; 
+  padding: 0.25rem 0.5rem;
+  margin-left: 10px;
+  border: 1px solid;
+  border-radius: 9999px;
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.recurring-toggle .toggle-input {
+  appearance: none;
+  width: 3rem;
+  height: 1.5rem;
+  background: var(--surface-alt);
+  border: 1px solid var(--text-secondary);
+  border-radius: 9999px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.recurring-toggle .toggle-input:checked {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.recurring-toggle .toggle-input::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(1.5rem - 4px);
+  height: calc(1.5rem - 4px);
+  background: var(--on-primary);
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.recurring-toggle .toggle-input:checked::after {
+  transform: translateX(1.5rem);
+}
+
+.recurring-toggle .toggle-label {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.recurrence-options .form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.recurrence-options .form-group label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.recurrence-options .form-group .input-select,
+.recurrence-options .form-group .input-text {
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--text-secondary);
+  border-radius: 6px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.recurrence-options {
+  background: var(--surface-alt);
+  border-radius: 12px;
+  padding: 0.75rem;
+  box-shadow: 0 4px 8px var(--shadow);
+}
+
+/* Transaction List */
 li {
   display: flex;
   justify-content: space-between;
