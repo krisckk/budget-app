@@ -6,9 +6,10 @@ export interface RecurringTransaction {
   amount: number;
   category: string;
   type: 'income'|'expense';
-  startDate: string;   // ISO
-  rule: string;        // an RRULE string, e.g. "FREQ=MONTHLY;BYMONTHDAY=1"
-  lastRun?: string;    // ISO date of last generated instance
+  startDate: string;
+  rule: string;
+  lastRun?: string;
+  currency?: string;
 }
 
 const slice = createSlice({

@@ -10,7 +10,7 @@ export default function BudgetChart({ theme }: { theme: string }) {
     const transactions = useSelector((s: RootState) => s.transactions.list);
     const categories   = useSelector((s: RootState) => s.categories.list);
 
-    const baseCurrency = 'USD';  
+    const baseCurrency = 'TWD';  
     const { data, isLoading } = useGetRatesQuery(baseCurrency);
     const rates = data?.rates ?? {};
 

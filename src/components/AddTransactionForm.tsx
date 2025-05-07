@@ -16,7 +16,7 @@ function SingleForm({ type }: { type: TxType }) {
   const [amt,   setAmt]    = useState('');
   const [cat,   setCat]    = useState('');
   const [date,  setDate]   = useState(new Date().toISOString().slice(0,10));
-  const [currency, setCurrency] = useState('USD');
+  const [currency, setCurrency] = useState('TWD');
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -125,7 +125,7 @@ function SingleForm({ type }: { type: TxType }) {
             onChange={e => setCurrency(e.target.value)}
             required
           >
-            {['USD','EUR','JPY','GBP','AUD','CAD'].map(c => (
+            {['TWD','USD','EUR','JPY','GBP','AUD','CAD'].map(c => (
               <option key={c} value={c}>{c}</option>
             ))}
           </select>

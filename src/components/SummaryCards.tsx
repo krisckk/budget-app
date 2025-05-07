@@ -5,7 +5,7 @@ import { useGetRatesQuery } from "../features/fxApi";
 
 export default function SummaryCards() {
     const tx = useSelector((s: RootState) => s.transactions.list);
-    const base = "USD";
+    const base = "TWD";
     const { data, isLoading } = useGetRatesQuery(base);
     const rates = data?.rates ?? {};
 

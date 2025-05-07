@@ -74,7 +74,6 @@ export function App() {
       </header>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/recurring" element={<RecurringManager />} />
       </Routes>
     </div>
   );
