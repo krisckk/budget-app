@@ -42,5 +42,5 @@ export function RecurrenceScheduler() {
     })();
   }, [recs, dispatch]);
 
-  return null; // this component renders nothing
+  return null;
 }

@@ -291,18 +291,21 @@ button {
     color 0.2s ease,
     border-color 0.2s ease,
     transform 0.1s ease;
+  justify-content: flex-start;
 }
 
 .recurring-toggle .toggle-input {
   appearance: none;
-  width: 3rem;
-  height: 1.5rem;
+  width: 3.6rem;
+  height: 2.4rem;
   background: var(--surface-alt);
   border: 1px solid var(--text-secondary);
   border-radius: 9999px;
   position: relative;
   cursor: pointer;
   transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+  margin-right: 0.5rem;
 }
 
 .recurring-toggle .toggle-input:checked {
@@ -315,20 +318,21 @@ button {
   position: absolute;
   top: 2px;
   left: 2px;
-  width: calc(1.5rem - 4px);
-  height: calc(1.5rem - 4px);
+  width: calc(2.4rem - 4px);
+  height: calc(2.4rem - 4px);
   background: var(--on-primary);
   border-radius: 50%;
   transition: transform 0.2s;
 }
 
 .recurring-toggle .toggle-input:checked::after {
-  transform: translateX(1.5rem);
+  transform: translateX(calc(3.6rem - 2.4rem));
 }
 
 .recurring-toggle .toggle-label {
   font-size: 0.9rem;
   color: var(--text-primary);
+  line-height: 2.4rem;
 }
 
 .recurrence-options .form-group {
@@ -351,6 +355,7 @@ button {
   border-radius: 6px;
   padding: 0.5rem;
   font-size: 0.9rem;
+  margin-top: 0.25rem;
 }
 
 .recurrence-options {
@@ -358,6 +363,16 @@ button {
   border-radius: 12px;
   padding: 0.75rem;
   box-shadow: 0 4px 8px var(--shadow);
+}
+
+.recurrence-options.form-row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.recurrence-options .amount-control {
+  margin-top: 0; 
 }
 
 /* Transaction List */

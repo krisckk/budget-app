@@ -12,8 +12,8 @@ export default function Dashboard() {
             <SummaryCards />
             <BudgetChart theme="dark" />
             <AddTransactionForm />
-            <TransactionList />
             <CategoryManager />
+            <TransactionList />
             <h2>Spending Heatmap</h2>
             <SpendCalendarHeatmap yearsBack={1} />
             <h2>Spending Over Time</h2>
